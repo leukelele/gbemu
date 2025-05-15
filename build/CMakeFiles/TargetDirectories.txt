@@ -1,3 +1,0 @@
-/home/leukelele/documents/gbdev/build/CMakeFiles/gbemu.dir
-/home/leukelele/documents/gbdev/build/CMakeFiles/edit_cache.dir
-/home/leukelele/documents/gbdev/build/CMakeFiles/rebuild_cache.dir
