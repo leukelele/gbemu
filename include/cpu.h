@@ -5,11 +5,11 @@
 
 // simulation of register pairings
 typedef union {
-    struct {
-        u8 lo;
-        u8 hi;
-    };
-    u16 reg;
+	struct {
+		u8 lo;
+		u8 hi;
+	};
+	u16 reg;
 } reg_pair;
 
 typedef struct {
