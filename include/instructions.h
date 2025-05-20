@@ -1,7 +1,8 @@
-#ifndef INSTRUCTIONS_H
-#define INSTRUCTIONS_H
+#ifndef ISA_H
+#define ISA_H
 
 #include <common.h>
+#include <register.h>
 
 typedef enum {
 	// load
@@ -57,6 +58,9 @@ typedef enum {
 	DI,
 	EI,
 	NOP,
-} instruction_set;
+} instruction;
+
+typedef enum {
+} addr_mode;
 
 #endif
