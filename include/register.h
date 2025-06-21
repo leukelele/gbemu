@@ -8,7 +8,7 @@ typedef union {
 	struct {
 		u8 lo;
 		u8 hi;
-	};
+	} bytes;
 	u16 reg;
 } register_pair;
 
