@@ -1,7 +1,7 @@
 #ifndef REGISTER_H
 #define REGISTER_H
 
-#include <common.h>
+#include "common.h"
 
 // simulation of register pairings
 typedef union {

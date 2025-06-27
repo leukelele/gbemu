@@ -1,9 +1,6 @@
 #ifndef ISA_H
 #define ISA_H
 
-#include <common.h>
-#include <register.h>
-
 typedef enum {
 	// load
 	LD,
@@ -58,30 +55,46 @@ typedef enum {
 	DI,
 	EI,
 	NOP,
-} instruction;
+} inst_type;
 
 typedef enum {
-	IMP,
-	R_D16,
-	R_R,
-	MR_R,
-	R,
-	R_D8,
-	R_MR,
-	R_HLI,
-	R_HLD,
-	HLI_R,
-	HLD_R,
-	R_A8,
-	A8_R,
-	HL_SPR,
-	D16,
-	D8,
-	D16_R,
-	MR_D8,
-	MR,
-	A16_R,
-	R_A16
+	// register
+	REG,
+	REG16,
+
+	// immediate values
+	IMM8,
+	IMM16,
+
+	// direct memory addressed by immediate
+	ADDR16,
+
+	// high-page immediate
+	HIGH_IMM8,
+
+	// register-indirect addressing
+	MEM_BC,
+	MEM_DE,
+	MEM_HL,
+
+	// (HL+) and (HL–) auto-increment/decrement forms
+	MEM_HL_INC,
+	MEM_HL_DEC,
+
+	// stack pointer / register pair operations
+	SP_REL,
+
+	// lelative immediate jumps
+	REL8,
+
+	// conditional
+	BITWISE,
+	RES_SET,
+	ROT_SHIFT,
 } addr_mode;
+
+typedef struct {
+	inst_type type ;
+} instruction;
 
 #endif
