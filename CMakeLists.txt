@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 4.0.2)
 
 project(gbemu C)
 
+# produces a compile_commands.json for clangd lsp
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # set c std
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
