@@ -1,25 +1,32 @@
 #ifndef REGISTER_H
 #define REGISTER_H
 
-#include "common.h"
+#include <stdint.h>
 
-// simulation of register pairings
+/** 
+ * The registers of the DMG-CPU are paired to form 16 bit registers; this
+ * design allows for both 8-bit and 16-bit operations using the same set of
+ * registers. Further elaboration may be found in the documentation.
+ */
 typedef union {
-	struct {
-		u8 lo;
-		u8 hi;
-	} bytes;
-	u16 reg;
-} register_pair;
+    struct {
+        uint8_t lo;
+        uint8_t hi;
+    } bytes;
+    uint16_t reg;
+} reg_pair_t;
 
-// cpu registers
+/** 
+ * The DMG-CPU registers are typically paired as follows (in addition to the
+ * stack pointer and program counter):
+ */
 typedef struct {
-	register_pair af;  // accumulator and flag
-	register_pair bc;  // general purpose reg
-	register_pair de;  // general purpose reg
-	register_pair hl;  // general purpose reg; mainly for memory addressing
-	u16 sp;            // stack pointer
-	u16 pc;            // program counter
-} cpu_registers;
+    reg_pair_t af;  // accumulator and flag
+    reg_pair_t bc;  // general purpose reg
+    reg_pair_t de;  // general purpose reg
+    reg_pair_t hl;  // general purpose reg; mainly for memory addressing
+    uint16_t   sp;  // stack pointer
+    uint16_t   pc;  // program counter
+} cpu_regs_t;
 
 #endif
