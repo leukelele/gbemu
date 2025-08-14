@@ -20,8 +20,8 @@ file(GLOB LIB CONFIGURE_DEPENDS "lib/*.c")
 
 # define executable target
 add_executable(gbemu
-	gbemu/main.c
-	${LIB}
+    gbemu/main.c
+    ${LIB}
 )
 
 # collect all .c files in the 'test' directory
@@ -34,13 +34,13 @@ add_library(unity STATIC
 
 # def test executable
 add_executable(tests
-	${TEST}
-	${LIB}
+    ${TEST}
+    ${LIB}
 )
 
 # only the tests target itself will use include directory when compiling
 target_include_directories(tests PRIVATE 
-	${CMAKE_SOURCE_DIR}/external/Unity/src)
+    ${CMAKE_SOURCE_DIR}/external/Unity/src)
 
 # link unity to test executable
 target_link_libraries(tests PRIVATE unity)
