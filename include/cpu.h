@@ -1,8 +1,9 @@
 #ifndef CPU_H
 #define CPU_H
 
-#include "isa.h"
+#include <stdint.h>
 
-int cpu();
+void    cpu_init(void);
+uint8_t fetch(void);
 
 #endif
