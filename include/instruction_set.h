@@ -28,8 +28,8 @@ typedef enum {
     CPL,  // complements the accumulator
 
     // rotate, shift, and bit operations
-    RCLA, // rotates A left through carry
-    RRCA, // rotates A right
+    RLCA, // rotates A left in a circular manner
+    RRCA, // rotates A right in a circular manner
     RLA,  // rotates A left through carry
     RRA,  // rotates A right through carry
     RLC,  // rotates any 8-bit register left
