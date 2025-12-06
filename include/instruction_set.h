@@ -80,7 +80,6 @@ typedef void (*inst_exec)(void);
 typedef struct {
     inst_exec execute;
     inst_fmt  format;
-    uint8_t   opcode;
     uint8_t   operand_size; // number of bytes after opcode
     uint8_t   mach_cycles;  // cycle for the inst. when cond. is false
                             // or non-branching
