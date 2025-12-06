@@ -30,7 +30,7 @@ typedef enum {
     XOR,  // bitwise XOR w A
     CCF,  // complements the carry flag
     SCF,  // sets the carry flag
-    DAA,
+    DAA,  // decimal adjust accumulator
     CPL,  // complements the accumulator
 
     // rotate, shift, and bit operations
@@ -67,15 +67,17 @@ typedef enum {
 } inst_fmt;
 
 // pointer to a function that executes a specific instruction
-typedef void (*instruction_executor)(void);
+typedef void (*inst_exec)(void);
 
 typedef struct {
-    inst_fmt              format;
-    uint8_t               opcode;
-    uint8_t               operand_size;
-    uint8_t               base_cycles;
-    uint8_t               conditional_cycles;
-    instruction_executor  execute;
+    inst_exec execute;
+    inst_fmt  format;
+    uint8_t   opcode;
+    uint8_t   operand_size;       // number of bytes after opcode
+    uint8_t   base_cycles;        // cycle for the inst. when cond. is false
+                                  // or non-branching
+    uint8_t   conditional_cycles; // extra cycles if branch is taken or cond.
+                                  // is met
 } instruction;
 
 void               instruction_set_init(void);
