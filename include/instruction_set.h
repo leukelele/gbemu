@@ -1,8 +1,14 @@
 #ifndef INSTRUCTION_SET_H
 #define INSTRUCTION_SET_H
 
+#include <stddef.h>
+#include <stdint.h>
+
+// the sharp LR35902 cpu has 256 possible opcodes for normal instructions
+#define INSTRUCTION_TABLE_SIZE 256
+
 /**
- * Instruction formats supported by the DMG-CPU. WIP and subject to change.
+ * instruction formats supported by the DMG-CPU; WIP and subject to change
  */
 typedef enum {
     // load operations
@@ -60,15 +66,19 @@ typedef enum {
     NOP,  // does nothing (no operation), used to consume one cycle
 } inst_fmt;
 
-/**
- * The complete structure of the instructions. TODO:
- * - opcode byte
- * - cycle
- * - size metadata?
- * - execute function (probably?)
- */
+// pointer to a function that executes a specific instruction
+typedef void (*instruction_executor)(void);
+
 typedef struct {
-    inst_fmt format;
+    inst_fmt              format;
+    uint8_t               opcode;
+    uint8_t               operand_size;
+    uint8_t               base_cycles;
+    uint8_t               conditional_cycles;
+    instruction_executor  execute;
 } instruction;
+
+void               instruction_set_init(void);
+const instruction *get_instruction_table(size_t *count);
 
 #endif
