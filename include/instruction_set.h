@@ -4,8 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// the sharp LR35902 cpu has 256 possible opcodes for normal instructions
-#define INSTRUCTION_TABLE_SIZE 256
+#define INSTRUCTION_TABLE_SIZE 256 // sharp LR35902 cpu has 256 possible
+                                   // opcodes for normal instructions
 
 /**
  * instruction formats supported by the DMG-CPU; WIP and subject to change
@@ -73,11 +73,10 @@ typedef struct {
     inst_exec execute;
     inst_fmt  format;
     uint8_t   opcode;
-    uint8_t   operand_size;       // number of bytes after opcode
-    uint8_t   base_cycles;        // cycle for the inst. when cond. is false
-                                  // or non-branching
-    uint8_t   conditional_cycles; // extra cycles if branch is taken or cond.
-                                  // is met
+    uint8_t   operand_size; // number of bytes after opcode
+    uint8_t   mach_cycles;  // cycle for the inst. when cond. is false
+                            // or non-branching
+    uint8_t   cond_cycles;  // extra cycles if branch is taken or cond. is met
 } instruction;
 
 void               instruction_set_init(void);
