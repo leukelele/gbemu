@@ -66,9 +66,17 @@ typedef enum {
     NOP,  // does nothing (no operation), used to consume one cycle
 } inst_fmt;
 
-// pointer to a function that executes a specific instruction
+/**
+ * pointer to an instruction execution routine
+ *
+ * handlers are expected to operate on CPU and memory state maintained
+ * elsewhere in the emulator; no arguments are passed directly
+ */
 typedef void (*inst_exec)(void);
 
+/**
+ * metadata and execution hook for a single opcode
+ */
 typedef struct {
     inst_exec execute;
     inst_fmt  format;
@@ -79,7 +87,17 @@ typedef struct {
     uint8_t   cond_cycles;  // extra cycles if branch is taken or cond. is met
 } instruction;
 
-void               instruction_set_init(void);
+/**
+ * initialize the opcode table with instruction metadata and handlers
+ */
+void instruction_set_init(void);
+
+/**
+ * retrieve a pointer to the instruction table and its size
+ *
+ * @param count optional out-parameter to receive the number of entries.
+ * @return pointer to the static instruction table.
+ */
 const instruction *get_instruction_table(size_t *count);
 
 #endif
