@@ -92,11 +92,10 @@ typedef struct {
 void instruction_set_init(void);
 
 /**
- * retrieve a pointer to the instruction table and its size
+ * retrieve a pointer to the instruction table
  *
- * @param count optional out-parameter to receive the number of entries.
  * @return pointer to the static instruction table.
  */
-const instruction *get_instruction_table(size_t *count);
+const instruction *get_instruction_table(void);
 
 #endif
