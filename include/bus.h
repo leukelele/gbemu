@@ -16,5 +16,24 @@
 #ifndef BUS_H
 #define BUS_H
 
+#include <stdint.h>
+
+// cartridge isn't built yet. Forward-declare it so bus.h doesn't need to
+// know its internals, just that it exists.
+typedef struct cartridge cartridge_t;
+
+typedef struct {
+    uint8_t vram[0x2000];  // 8000h-9FFFh video RAM, PPU's area of memory
+    uint8_t wram[0x2000];  // C000h-DFFFh general memory
+    uint8_t oam[0xA0];     // FE00h-FE9Fh table for sprites
+    uint8_t io[0x80];      // FF00h-FF7Fh placeholder until real regs exist
+    uint8_t hram[0x7F];    // FF80h-FFFEh general, but more for time-sensitive
+    uint8_t ie;            // FFFFh
+
+    cartridge_t *cart; // 0000h-7FFFh and A000h-BFFFh forward here
+} bus_t;
+
+uint8_t bus_read8 (bus_t *bus, uint16_t addr);
+void    bus_write8(bus_t *bus, uint16_t addr, uint8_t value);
 
 #endif
