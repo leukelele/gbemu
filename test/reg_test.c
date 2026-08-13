@@ -2,7 +2,7 @@
 #include "register_file.h"
 
 void test_reg_init_sets_default_values(void) {
-    reg_file regs;
+    struct reg_file regs;
 
     // set to non-default values to make sure init really changes them
     regs.af.reg = 0;
