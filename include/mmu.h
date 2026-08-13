@@ -18,22 +18,50 @@
 
 #include <stdint.h>
 
-// cartridge isn't built yet. Forward-declare it so bus.h doesn't need to
-// know its internals, just that it exists.
+/**
+ * The cartridge has not yet been built WIP. For now, it will be forward-
+ * declared so that mmu.h is atleast aware that it exists.
+ */
 typedef struct cartridge cartridge_t;
 
+/**
+ * Each field maps to a fixed hardware address range as to mimic the memory map
+ * found in the pandoc (though, I have also stored it in gbemu/docs/). There
+ * are also special areas in memory such as: 
+ *  - echo RAM, which mirrors 0xC000-0xDDFF in working RAM, and 
+ *  - 0xFEA0-0xFEFF, which is unusable RAM.
+ */
 typedef struct {
-    uint8_t vram[0x2000];  // 8000h-9FFFh video RAM, PPU's area of memory
-    uint8_t wram[0x2000];  // C000h-DFFFh general memory
-    uint8_t oam[0xA0];     // FE00h-FE9Fh table for sprites
-    uint8_t io[0x80];      // FF00h-FF7Fh placeholder until real regs exist
-    uint8_t hram[0x7F];    // FF80h-FFFEh general, but more for time-sensitive
-    uint8_t ie;            // FFFFh
+    uint8_t vram[0x2000];   // 0x8000-0x9FFF video RAM, PPU's area of memory
+    uint8_t wram[0x2000];   // 0xC000-0xDFFF general memory
+    uint8_t oam[0xA0];      // 0xFE00-0xFE9F table for sprites
+    uint8_t io[0x80];       // 0xFF00-0xFF7F placeholder until real regs exist
+    uint8_t hram[0x7F];     // 0xFF80-0xFFFE general mem but for time-sensitive
+    uint8_t ie;             // 0xFFFF interrupt enabel register
 
-    cartridge_t *cart; // 0000h-7FFFh and A000h-BFFFh forward here
+    cartridge_t *cart;      // 0x0000-0x7FFF and 0xA000h-0xBFFF forward here
 } bus_t;
 
+/**
+ * The function, when given parameters, returns the byte stored in the
+ * particular location in memory.
+ * 
+ * @param[in] bus The bus instance that is to be read by the function.
+ * @param[in] addr The 16-bit bit address to be read by the function in
+ *                 correlation with the bus.
+ * @return The byte stored in the memory region (represented by `bus_t`) for 
+ *         `addr`.
+ */
 uint8_t bus_read8 (bus_t *bus, uint16_t addr);
+
+/**
+ * The function, when given parameters, writes to the memory location.
+ * 
+ * @param[in, out] bus The bus instance that is to be read and modified.
+ * @param[in] addr The 16-bit bit address.
+ * @param[in] value The byte to store in the memory region assoicated
+ *                  with `addr`
+ */
 void    bus_write8(bus_t *bus, uint16_t addr, uint8_t value);
 
 #endif
