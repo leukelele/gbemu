@@ -1,10 +1,6 @@
 #include "unity.h"
 #include "register_file.h"
 
-// setUp and tearDown are required, even if empty
-void setUp(void) {}
-void tearDown(void) {}
-
 void test_reg_init_sets_default_values(void) {
     reg_file regs;
 
@@ -26,10 +22,4 @@ void test_reg_init_sets_default_values(void) {
     TEST_ASSERT_EQUAL_UINT16(0x014d, regs.hl.reg);
     TEST_ASSERT_EQUAL_UINT16(0xfffe, regs.sp);
     TEST_ASSERT_EQUAL_UINT16(0x0100, regs.pc);
-}
-
-int main(void) {
-    UNITY_BEGIN();
-    RUN_TEST(test_reg_init_sets_default_values);
-    return UNITY_END();
 }

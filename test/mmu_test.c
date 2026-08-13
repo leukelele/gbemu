@@ -1,10 +1,6 @@
 #include "unity.h"
 #include "mmu.h"
 
-// setUp and tearDown are required, even if empty
-void setUp(void) {}
-void tearDown(void) {}
-
 void test_vram_round_trip(void) {
     bus_t bus = {0};
     bus_write8(&bus, 0x8000, 0x42);     // first byte of VRAM
@@ -27,12 +23,4 @@ void test_rom_stub_reads_zero(void) {
     bus_t bus = {0};
     TEST_ASSERT_EQUAL_UINT8(0x00, bus_read8(&bus, 0x0000));
     TEST_ASSERT_EQUAL_UINT8(0x00, bus_read8(&bus, 0x7FFF));
-}
-
-int main(void) {
-    UNITY_BEGIN();
-    RUN_TEST(test_vram_round_trip);
-    RUN_TEST(test_echo_ram_mirrors_wram);
-    RUN_TEST(test_rom_stub_reads_zero);
-    return UNITY_END();
 }
