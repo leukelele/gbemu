@@ -1,6 +1,5 @@
-#include "cpu.h"
-#include "register_file.h"
 #include <stdio.h>
+#include "cpu.h"
 
 void cpu_init(void) {
     // declare a CPU register file instance and initialize it

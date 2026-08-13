@@ -49,7 +49,7 @@ struct bus {
  * @param[in] bus The bus instance that is to be read by the function.
  * @param[in] addr The 16-bit bit address to be read by the function in
  *                 correlation with the bus.
- * @return The byte stored in the memory region (represented by `bus_t`) for 
+ * @return The byte stored in the memory region (represented by `bus`) for 
  *         `addr`.
  */
 uint8_t bus_read8 (struct bus *bus, uint16_t addr);
@@ -62,6 +62,6 @@ uint8_t bus_read8 (struct bus *bus, uint16_t addr);
  * @param[in] value The byte to store in the memory region assoicated
  *                  with `addr`
  */
-void    bus_write8(struct bus *bus, uint16_t addr, uint8_t value);
+void bus_write8(struct bus *bus, uint16_t addr, uint8_t value);
 
 #endif
