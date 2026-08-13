@@ -21,26 +21,26 @@
  * design allows for both 8-bit and 16-bit operations using the same set of
  * registers.
  */
-typedef union {
+union reg_pair{
     struct {
         uint8_t lo;
         uint8_t hi;
     } bytes;
     uint16_t reg;
-} reg_pair;
+};
 
 /** 
  * The DMG-CPU register file is formulated by the registers paired as follows
  * (in addition to the stack pointer and program counter):
  */
-typedef struct {
-    reg_pair   af;  // accumulator and flag
-    reg_pair   bc;  // general purpose reg
-    reg_pair   de;  // general purpose reg
-    reg_pair   hl;  // general purpose reg; mainly for memory addressing
-    uint16_t   sp;  // stack pointer
-    uint16_t   pc;  // program counter
-} reg_file;
+struct reg_file {
+    union reg_pair af;  // accumulator and flag
+    union reg_pair bc;  // general purpose reg
+    union reg_pair de;  // general purpose reg
+    union reg_pair hl;  // general purpose reg; mainly for memory addressing
+    uint16_t       sp;  // stack pointer
+    uint16_t       pc;  // program counter
+};
 
 /**
  * The function sets all registers in the `reg_file` structure to their
@@ -53,6 +53,6 @@ typedef struct {
  *       Additionally this would allow multiple functions to modify the same
  *       register file instance.
  */
-void reg_init(reg_file *reg_file);
+void reg_init(struct reg_file *reg_file);
 
 #endif

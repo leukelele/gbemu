@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "register_file.h"
 
-void reg_init(reg_file *reg_file) {
+void reg_init(struct reg_file *reg_file) {
     // init registers according to the original bootstrap rom
     reg_file->af.reg = 0x01B0;
     reg_file->bc.reg = 0x0013;

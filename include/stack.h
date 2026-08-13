@@ -5,12 +5,12 @@
 
 #define STACK_CAPACITY 0xFFFE
 
-typedef struct {
+struct stack {
     uint16_t data[STACK_CAPACITY];
     uint16_t top;
-} stack;
+};
 
-void     push(stack *s, uint16_t val);
-uint16_t pop (stack *s);
+void     push(struct stack *s, uint16_t val);
+uint16_t pop (struct stack *s);
 
 #endif

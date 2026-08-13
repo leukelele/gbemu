@@ -10,7 +10,7 @@
 /**
  * instruction formats supported by the DMG-CPU; WIP and subject to change
  */
-typedef enum {
+enum inst_fmt {
     // load operations
     LD,   // loads 8-/16-bit data between registers/memory
     LDH,  // loads from High RAM, access ranges from 0xFF00 - 0xFFFF
@@ -64,7 +64,7 @@ typedef enum {
     DI,   // disables interrupts
     EI,   // enables interrupts
     NOP,  // does nothing (no operation), used to consume one cycle
-} inst_fmt;
+};
 
 /**
  * pointer to an instruction execution routine
@@ -77,14 +77,15 @@ typedef void (*inst_exec)(void);
 /**
  * metadata and execution hook for a single opcode
  */
-typedef struct {
-    inst_exec execute;
-    inst_fmt  format;
-    uint8_t   operand_size; // number of bytes after opcode
-    uint8_t   mach_cycles;  // cycle for the inst. when cond. is false
-                            // or non-branching
-    uint8_t   cond_cycles;  // extra cycles if branch is taken or cond. is met
-} instruction;
+struct instruction{
+    enum inst_fmt   format;
+    inst_exec       execute;
+    uint8_t         operand_size; // number of bytes after opcode
+    uint8_t         mach_cycles;  // cycle for the inst. when cond. is false
+                                  // or non-branching
+    uint8_t         cond_cycles;  // extra cycles if branch is taken or cond.
+                                  // is met
+};
 
 /**
  * initialize the opcode table with instruction metadata and handlers
@@ -96,6 +97,6 @@ void instruction_set_init(void);
  *
  * @return pointer to the static instruction table.
  */
-const instruction *get_instruction_table(void);
+const struct instruction *get_instruction_table(void);
 
 #endif

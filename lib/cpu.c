@@ -5,8 +5,8 @@
 void cpu_init(void) {
     // declare a CPU register file instance and initialize it
     // this ensures the pointer refers to valid memory before initialization
-    reg_file cpu_instance;
-    reg_file *dmg_cpu = &cpu_instance;
+    struct reg_file cpu_instance;
+    struct reg_file *dmg_cpu = &cpu_instance;
 
     reg_init(dmg_cpu);  // intiialize DMG01 to initialized values
 

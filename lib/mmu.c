@@ -1,7 +1,7 @@
 #include "mmu.h"
 #include <stdint.h>
 
-uint8_t bus_read8(bus_t *bus, uint16_t addr) {
+uint8_t bus_read8(struct bus *bus, uint16_t addr) {
     if (addr <= 0x7FFF) return 0x00;        // cartridge ROM that is WIP
     else if (addr <= 0x9FFF) return bus->vram[addr - 0x8000];
     else if (addr <= 0xBFFF) return 0x00;   // same reason for WIP
@@ -16,7 +16,7 @@ uint8_t bus_read8(bus_t *bus, uint16_t addr) {
     return 0x00;
 }   // bus_read8()
 
-void bus_write8(bus_t *bus, uint16_t addr, uint8_t value) {
+void bus_write8(struct bus *bus, uint16_t addr, uint8_t value) {
     if (addr <= 0x7FFF) return;
     else if (addr <= 0x9FFF) bus->vram[addr - 0x8000] = value;
     else if (addr <= 0xBFFF) return;
