@@ -2,9 +2,11 @@
 
 static struct instruction inst_table[INSTRUCTION_TABLE_SIZE];
 
-static void exec_nop(void) {}
+static void exec_nop(struct cpu *cpu) {
+    return;
+}
 // for "indirect" meaning see docs/dev-log.md##251205###2252
-static void exec_ld_bc_indirect_a(void) {}
+static void exec_ld_bc_indirect_a(struct cpu *cpu) {}
 
 /**
  * Populates a single inst_table entry for the given opcode
