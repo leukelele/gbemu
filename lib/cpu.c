@@ -9,12 +9,11 @@ uint8_t fetch(struct cpu *cpu) {
     return bus_read8(cpu->bus, cpu->regs.pc++);
 }
 
-// WIP
-uint8_t decode(void) {
-    return 0x00;
+const struct instruction *decode(uint8_t opcode) {
+    return &get_instruction_table()[opcode];
 }
 
-// WIP
-uint8_t execute(void) {
-    return 0x00;
+uint8_t execute(struct cpu *cpu, const struct instruction *inst) {
+    if (inst->execute) inst->execute(cpu);
+    return inst->mach_cycles;
 }
