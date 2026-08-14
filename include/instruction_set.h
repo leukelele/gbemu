@@ -72,7 +72,8 @@ enum inst_fmt {
  * handlers are expected to operate on CPU and memory state maintained
  * elsewhere in the emulator; no arguments are passed directly
  */
-typedef void (*inst_exec)(void);
+struct cpu;     // forward declaration for the subsequent inst_exec()
+typedef void (*inst_exec)(struct cpu *cpu);
 
 /**
  * metadata and execution hook for a single opcode
