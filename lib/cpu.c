@@ -1,17 +1,20 @@
-#include <stdio.h>
 #include "cpu.h"
 
-void cpu_init(void) {
-    // declare a CPU register file instance and initialize it
-    // this ensures the pointer refers to valid memory before initialization
-    struct reg_file cpu_instance;
-    struct reg_file *dmg_cpu = &cpu_instance;
-
-    reg_init(dmg_cpu);  // intiialize DMG01 to initialized values
-
-    printf("hello world!\n");
+void cpu_init(struct cpu *cpu, struct bus *bus) {
+    cpu->bus = bus;
+    reg_init(&cpu->regs);
 }
 
-uint8_t fetch(void) {
-    return 0;
+uint8_t fetch(struct cpu *cpu) {
+    return bus_read8(cpu->bus, cpu->regs.pc++);
+}
+
+// WIP
+uint8_t decode(void) {
+    return 0x00;
+}
+
+// WIP
+uint8_t execute(void) {
+    return 0x00;
 }
