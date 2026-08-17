@@ -1,6 +1,7 @@
 #ifndef INSTRUCTION_SET_H
 #define INSTRUCTION_SET_H
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -69,10 +70,12 @@ enum inst_fmt {
 /**
  * pointer to an instruction execution routine
  *
- * handlers are expected to operate on CPU and memory state maintained
- * elsewhere in the emulator; no arguments are passed directly
+ * note: handlers are expected to operate on CPU and memory state maintained
+ * elsewhere in the emulator; no arguments are passed directly. Additionally,
+ * the returned boolean is to indicate if the instruction branched or not.
  */
-typedef void (*inst_exec)(void);
+struct cpu;     // forward declaration for the subsequent inst_exec()
+typedef bool (*inst_exec)(struct cpu *cpu);
 
 /**
  * metadata and execution hook for a single opcode

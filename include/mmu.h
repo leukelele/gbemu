@@ -55,6 +55,19 @@ struct bus {
 uint8_t bus_read8 (struct bus *bus, uint16_t addr);
 
 /**
+ * The function, when given parameters, returns the byte stored in the
+ * particular location in memory. Because it is a request for 16 bits, the
+ * function effictively calls `bus_read8()` twice.
+ * 
+ * @param[in] bus The bus instance that is to be read by the function.
+ * @param[in] addr The 16-bit bit address to be read by the function in
+ *                 correlation with the bus.
+ * @return The byte stored in the memory region (represented by `bus`) for 
+ *         `addr`.
+ */
+uint16_t bus_read16(struct bus *bus, uint16_t addr);
+
+/**
  * The function, when given parameters, writes to the memory location.
  * 
  * @param[in, out] bus The bus instance that is to be read and modified.
@@ -63,5 +76,16 @@ uint8_t bus_read8 (struct bus *bus, uint16_t addr);
  *                  with `addr`
  */
 void bus_write8(struct bus *bus, uint16_t addr, uint8_t value);
+
+/**
+ * The function, when given parameters, writes to the memory location. It
+ * essnetially calls `bus_write8()` twice.
+ * 
+ * @param[in, out] bus The bus instance that is to be read and modified.
+ * @param[in] addr The 16-bit bit address.
+ * @param[in] value The byte to store in the memory region assoicated
+ *                  with `addr`
+ */
+void bus_write16(struct bus *bus, uint16_t addr, uint16_t value);
 
 #endif
