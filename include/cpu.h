@@ -63,8 +63,8 @@ const struct instruction *decode(uint8_t opcode);
  * routine.
  *
  * @param[in] cpu This is for the CPU's registers
- * @param[out] inst The instruction struct itself contains the means for 
- *                  executing that particular instruction.
+ * @param[in] inst The instruction struct itself contains the means for 
+ *                 executing that particular instruction.
  * @return The machine cycles as this is the only way to know how long the
  *         instruction will execute.
  */
