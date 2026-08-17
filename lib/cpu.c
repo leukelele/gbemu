@@ -14,9 +14,9 @@ const struct instruction *decode(uint8_t opcode) {
 }
 
 uint8_t execute(struct cpu *cpu, const struct instruction *inst) {
-    if (inst->execute) inst->execute(cpu);
-    else return 0;
-    return inst->mach_cycles;
+    if (!inst->execute) return 0x0;
+    bool branched = inst->execute(cpu);
+    return inst->mach_cycles + (branched ? inst->cond_cycles : 0);
 }
 
 uint8_t cpu_step(struct cpu *cpu) {
