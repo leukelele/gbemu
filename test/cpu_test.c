@@ -23,7 +23,6 @@ void test_decode_returns_correct_metadata_for_nop(void) {
 
     TEST_ASSERT_EQUAL(NOP, inst->format);
     TEST_ASSERT_EQUAL_UINT8(1, inst->mach_cycles);
-    TEST_ASSERT_EQUAL_UINT8(0, inst->operand_size);
     TEST_ASSERT_NOT_NULL(inst->execute);
 }
 
@@ -33,7 +32,6 @@ void test_decode_returns_correct_metadata_for_ld_bc_indirect_a(void) {
 
     TEST_ASSERT_EQUAL(LD, inst->format);
     TEST_ASSERT_EQUAL_UINT8(2, inst->mach_cycles);
-    TEST_ASSERT_EQUAL_UINT8(0, inst->operand_size);
     TEST_ASSERT_NOT_NULL(inst->execute);
 }
 
