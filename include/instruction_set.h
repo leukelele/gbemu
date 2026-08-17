@@ -73,7 +73,7 @@ enum inst_fmt {
  * elsewhere in the emulator; no arguments are passed directly
  */
 struct cpu;     // forward declaration for the subsequent inst_exec()
-typedef void (*inst_exec)(struct cpu *cpu);
+typedef uint8_t (*inst_exec)(struct cpu *cpu);
 
 /**
  * metadata and execution hook for a single opcode
