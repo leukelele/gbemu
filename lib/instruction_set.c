@@ -1,12 +1,15 @@
 #include "instruction_set.h"
+#include "cpu.h"
 
 static struct instruction inst_table[INSTRUCTION_TABLE_SIZE];
 
-static void exec_nop(struct cpu *cpu) {
-    return;
+static uint8_t exec_nop(struct cpu *cpu) {
+    return inst_table[0x00].mach_cycles;
 }
-// for "indirect" meaning see docs/dev-log.md##251205###2252
-static void exec_ld_bc_indirect_a(struct cpu *cpu) {}
+static uint8_t exec_ld_bc_indirect_a(struct cpu *cpu) {
+    bus_write16(cpu->bus, fetch(cpu), cpu->regs.bc.reg);
+    return inst_table[0x02].mach_cycles;
+}
 
 /**
  * Populates a single inst_table entry for the given opcode
@@ -15,7 +18,6 @@ static void init_inst(uint8_t opcode, enum inst_fmt format,
                         uint8_t operand_size, uint8_t mach_cycles,
                         uint8_t cond_cycles, inst_exec executor) {
     // struct fields may be init using designated initializers (.field = value)
-    // see docs/dev-log.md##251205###2139
     inst_table[opcode] = (struct instruction) {
         .format = format,
         .operand_size = operand_size,
