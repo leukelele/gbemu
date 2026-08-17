@@ -70,4 +70,14 @@ const struct instruction *decode(uint8_t opcode);
  */
 uint8_t execute(struct cpu *cpu, const struct instruction *inst);
 
+/**
+ * Bundles the complete CPU loop: fetch -> decode -> execute.
+ *
+ * @param[in] cpu This is for the CPU's registers
+ *
+ * @return The machine cycles as this is the only way to know how long the
+ *         instruction will execute.
+ */
+uint8_t cpu_step(struct cpu *cpu);
+
 #endif
