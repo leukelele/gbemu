@@ -83,7 +83,6 @@ typedef bool (*inst_exec)(struct cpu *cpu);
 struct instruction{
     enum inst_fmt   format;
     inst_exec       execute;
-    uint8_t         operand_size; // number of bytes after opcode
     uint8_t         mach_cycles;  // cycle for the inst. when cond. is false
                                   // or non-branching
     uint8_t         cond_cycles;  // extra cycles if branch is taken or cond.
