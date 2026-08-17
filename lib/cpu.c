@@ -13,6 +13,7 @@ const struct instruction *decode(uint8_t opcode) {
     return &get_instruction_table()[opcode];
 }
 
+// WIP because changes are being made to how instruction works
 uint8_t execute(struct cpu *cpu, const struct instruction *inst) {
     if (inst->execute) inst->execute(cpu);
     return inst->mach_cycles;
