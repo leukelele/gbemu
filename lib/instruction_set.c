@@ -3,12 +3,13 @@
 
 static struct instruction inst_table[INSTRUCTION_TABLE_SIZE];
 
-static uint8_t exec_nop(struct cpu *cpu) {
-    return inst_table[0x00].mach_cycles;
+static bool exec_nop(struct cpu *cpu) {
+    return false;
 }
-static uint8_t exec_ld_bc_indirect_a(struct cpu *cpu) {
-    bus_write16(cpu->bus, fetch(cpu), cpu->regs.bc.reg);
-    return inst_table[0x02].mach_cycles;
+
+static bool exec_ld_bc_indirect_a(struct cpu *cpu) {
+    bus_write8(cpu->bus, cpu->regs.bc.reg, cpu->regs.af.bytes.hi);
+    return false;
 }
 
 /**
