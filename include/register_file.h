@@ -25,8 +25,8 @@ union reg_pair{
     struct {
         uint8_t lo;
         uint8_t hi;
-    } bytes;
-    uint16_t reg;
+    } byte;
+    uint16_t pair;
 };
 
 /** 

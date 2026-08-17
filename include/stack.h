@@ -10,7 +10,4 @@ struct stack {
     uint16_t top;
 };
 
-void     push(struct stack *s, uint16_t val);
-uint16_t pop (struct stack *s);
-
 #endif

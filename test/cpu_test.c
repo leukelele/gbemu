@@ -61,8 +61,8 @@ void test_execute_ld_bc_indirect_a_writes_a_to_bc_address(void) {
     struct cpu cpu;
     cpu_init(&cpu, &bus);
 
-    cpu.regs.bc.reg = 0xC010;      // arbitrary WRAM address
-    cpu.regs.af.bytes.hi = 0x99;   // register A
+    cpu.regs.bc.pair = 0xC010;      // arbitrary WRAM address
+    cpu.regs.af.byte.hi = 0x99;   // register A
 
     uint8_t cycles = execute(&cpu, decode(0x02));
 
@@ -105,8 +105,8 @@ void test_cpu_step_ld_bc_indirect_a_writes_memory_and_advances_pc_by_one(void) {
 
     bus_write8(&bus, cpu.regs.pc, 0x02);
     uint16_t pc_before = cpu.regs.pc;
-    cpu.regs.bc.reg = 0xC020;
-    cpu.regs.af.bytes.hi = 0x7B;
+    cpu.regs.bc.pair = 0xC020;
+    cpu.regs.af.byte.hi = 0x7B;
 
     uint8_t cycles = cpu_step(&cpu);
 
