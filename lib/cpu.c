@@ -5,47 +5,51 @@ void cpu_init(struct cpu *cpu, struct bus *bus) {
     reg_init(&cpu->regs);
 }
 
-/**
- * The function is basically a wrapper for the CPU struct and its bus 
- * connection. This progresses the program counter (PC)
- *
- * @param[in] cpu It is the CPU's bus which is to be read along with the
- *                current register pointer.
- * @return The address found at the program counter.
- */
-static uint8_t fetch(struct cpu *cpu) {
+uint8_t fetch(struct cpu *cpu) {
     return bus_read8(cpu->bus, cpu->regs.pc++);
 }
 
-/**
- * Essentially an instruction table lookup wrapper. It's more for 
- * conceptualization.
- *
- * @param[in] opcode The opcode to be translated.
- * @return The particular instruction struct that the opcode translates to.
- */
-static const struct instruction *decode(uint8_t opcode) {
+const struct instruction *decode(uint8_t opcode) {
     return &get_instruction_table()[opcode];
 }
 
-/**
- * Checking that the instruction routine exists, executes the instruction
- * routine.
- *
- * @param[in] cpu This is for the CPU's registers
- * @param[in] inst The instruction struct itself contains the means for 
- *                 executing that particular instruction.
- * @return The machine cycles as this is the only way to know how long the
- *         instruction will execute.
- */
-static uint8_t execute(struct cpu *cpu, const struct instruction *inst) {
+uint8_t execute(struct cpu *cpu, const struct instruction *inst,
+                        uint8_t opcode) {
     if (!inst->execute) return 0x0;
-    bool branched = inst->execute(cpu);
+    bool branched = inst->execute(cpu, opcode);
     return inst->mach_cycles + (branched ? inst->cond_cycles : 0);
 }
 
 uint8_t cpu_step(struct cpu *cpu) {
     uint8_t opcode = fetch(cpu);
     const struct instruction *inst = decode(opcode);
-    return execute(cpu, inst);
+    return execute(cpu, inst, opcode);
+}
+
+uint8_t reg8_get(struct cpu *cpu, uint8_t index) {
+    switch (index) {
+        case 0: return cpu->regs.bc.byte.hi; // B
+        case 1: return cpu->regs.bc.byte.lo; // C
+        case 2: return cpu->regs.de.byte.hi; // D
+        case 3: return cpu->regs.de.byte.lo; // E
+        case 4: return cpu->regs.hl.byte.hi; // H
+        case 5: return cpu->regs.hl.byte.lo; // L
+        case 6: return bus_read8(cpu->bus, cpu->regs.hl.pair); // (HL)
+        case 7: return cpu->regs.af.byte.hi; // A
+        default: return 0;
+    }
+}
+
+void reg8_set(struct cpu *cpu, uint8_t index, uint8_t value) {
+    switch (index) {
+        case 0: cpu->regs.bc.byte.hi = value; break; // B
+        case 1: cpu->regs.bc.byte.lo = value; break; // C
+        case 2: cpu->regs.de.byte.hi = value; break; // D
+        case 3: cpu->regs.de.byte.lo = value; break; // E
+        case 4: cpu->regs.hl.byte.hi = value; break; // H
+        case 5: cpu->regs.hl.byte.lo = value; break; // L
+        case 6: bus_write8(cpu->bus, cpu->regs.hl.pair, value); break; // (HL)
+        case 7: cpu->regs.af.byte.hi = value; break; // A
+        default: break;
+    }
 }
