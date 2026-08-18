@@ -75,7 +75,7 @@ enum inst_fmt {
  * the returned boolean is to indicate if the instruction branched or not.
  */
 struct cpu;     // forward declaration for the subsequent inst_exec()
-typedef bool (*inst_exec)(struct cpu *cpu);
+typedef bool (*inst_exec)(struct cpu *cpu, uint8_t opcode);
 
 /**
  * metadata and execution hook for a single opcode
