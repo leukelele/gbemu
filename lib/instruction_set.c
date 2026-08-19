@@ -171,7 +171,7 @@ static void instruction_ld(void) {
         uint8_t opcode1 = (uint8_t)(0x06 | pair << 4);
         uint8_t opcode2 = (uint8_t)(0x0e | pair << 4);
         uint8_t dst1 = (opcode1 >> 3) & 0x7;
-        uint8_t dst2 = (opcode1 >> 3) & 0x7;
+        uint8_t dst2 = (opcode2 >> 3) & 0x7;
         init_inst(opcode1, LD, (dst1 == 6) ? 3 : 2, 0, exec_ld_r_n);
         init_inst(opcode2, LD, (dst2 == 6) ? 3 : 2, 0, exec_ld_r_n);
     }

@@ -60,8 +60,8 @@ void stack_push16(struct cpu *cpu, uint16_t value) {
 }
 
 uint16_t stack_pop16(struct cpu *cpu){
-    uint8_t lo = cpu->regs.bc.byte.lo = bus_read8(cpu->bus, cpu->regs.sp++);
-    uint8_t hi = cpu->regs.bc.byte.hi = bus_read8(cpu->bus, cpu->regs.sp++);
+    uint8_t lo = bus_read8(cpu->bus, cpu->regs.sp++);
+    uint8_t hi = bus_read8(cpu->bus, cpu->regs.sp++);
     return (uint16_t)((hi << 8) | lo);
 }
 
