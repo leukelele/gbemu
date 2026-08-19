@@ -168,8 +168,12 @@ static void instruction_ld(void) {
 
     // 0x06, 0x16, 0x26, 0x36; 0x0e, 0x1e, 0x2e, 0x3e
     for (uint8_t pair = 0; pair < 4; pair++) {
-        init_inst((uint8_t)(0x06 | (pair << 4)), LD, 2, 0, exec_ld_r_n);
-        init_inst((uint8_t)(0x0e | (pair << 4)), LD, 2, 0, exec_ld_r_n);
+        uint8_t opcode1 = (uint8_t)(0x06 | pair << 4);
+        uint8_t opcode2 = (uint8_t)(0x0e | pair << 4);
+        uint8_t dst1 = (opcode1 >> 3) & 0x7;
+        uint8_t dst2 = (opcode1 >> 3) & 0x7;
+        init_inst(opcode1, LD, (dst1 == 6) ? 3 : 2, 0, exec_ld_r_n);
+        init_inst(opcode2, LD, (dst2 == 6) ? 3 : 2, 0, exec_ld_r_n);
     }
 
     // LD r,r' block (0x40-0x7F, except 0x76=HALT)
@@ -185,6 +189,7 @@ static void instruction_ld(void) {
     init_inst(0xEA, LD, 4, 0, exec_ld_nn_a);
     init_inst(0xFA, LD, 4, 0, exec_ld_nn_a);
 
+    // routine for sp
     init_inst(0xF9, LD, 2, 0, exec_ld_sp_hl);
     init_inst(0xF8, LD, 3, 0, exec_ld_hl_sp_e);
     init_inst(0x08, LD, 5, 0, exec_ld_nn_sp);
