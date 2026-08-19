@@ -54,15 +54,14 @@ void reg8_set(struct cpu *cpu, uint8_t index, uint8_t value) {
     }
 }
 
-bool stack_pop16(struct cpu *cpu, uint8_t opcode){
-    cpu->regs.bc.byte.lo = bus_read8(cpu->bus, cpu->regs.sp++);
-    cpu->regs.bc.byte.hi = bus_read8(cpu->bus, cpu->regs.sp++);
-    return false;
+void stack_push16(struct cpu *cpu, uint16_t value) {
+    bus_write8(cpu->bus, --cpu->regs.sp, (uint8_t)(value >> 8));
+    bus_write8(cpu->bus, --cpu->regs.sp, (uint8_t)(value & 0xFF));
 }
 
-bool stack_push16(struct cpu *cpu, uint8_t opcode) {
-    bus_write8(cpu->bus, --cpu->regs.sp, cpu->regs.bc.byte.hi);
-    bus_write8(cpu->bus, --cpu->regs.sp, cpu->regs.bc.byte.lo);
-    return false;
+uint16_t stack_pop16(struct cpu *cpu){
+    uint8_t lo = cpu->regs.bc.byte.lo = bus_read8(cpu->bus, cpu->regs.sp++);
+    uint8_t hi = cpu->regs.bc.byte.hi = bus_read8(cpu->bus, cpu->regs.sp++);
+    return (uint16_t)((hi << 8) | lo);
 }
 
