@@ -28,28 +28,28 @@ uint8_t cpu_step(struct cpu *cpu) {
 
 uint8_t reg8_get(struct cpu *cpu, uint8_t index) {
     switch (index) {
-        case 0: return cpu->regs.bc.byte.hi; // B
-        case 1: return cpu->regs.bc.byte.lo; // C
-        case 2: return cpu->regs.de.byte.hi; // D
-        case 3: return cpu->regs.de.byte.lo; // E
-        case 4: return cpu->regs.hl.byte.hi; // H
-        case 5: return cpu->regs.hl.byte.lo; // L
-        case 6: return bus_read8(cpu->bus, cpu->regs.hl.pair); // (HL)
-        case 7: return cpu->regs.af.byte.hi; // A
+        case 0: return cpu->regs.bc.byte.hi;                    // B
+        case 1: return cpu->regs.bc.byte.lo;                    // C
+        case 2: return cpu->regs.de.byte.hi;                    // D
+        case 3: return cpu->regs.de.byte.lo;                    // E
+        case 4: return cpu->regs.hl.byte.hi;                    // H
+        case 5: return cpu->regs.hl.byte.lo;                    // L
+        case 6: return bus_read8(cpu->bus, cpu->regs.hl.pair);  // (HL)
+        case 7: return cpu->regs.af.byte.hi;                    // A
         default: return 0;
     }
 }
 
 void reg8_set(struct cpu *cpu, uint8_t index, uint8_t value) {
     switch (index) {
-        case 0: cpu->regs.bc.byte.hi = value; break; // B
-        case 1: cpu->regs.bc.byte.lo = value; break; // C
-        case 2: cpu->regs.de.byte.hi = value; break; // D
-        case 3: cpu->regs.de.byte.lo = value; break; // E
-        case 4: cpu->regs.hl.byte.hi = value; break; // H
-        case 5: cpu->regs.hl.byte.lo = value; break; // L
-        case 6: bus_write8(cpu->bus, cpu->regs.hl.pair, value); break; // (HL)
-        case 7: cpu->regs.af.byte.hi = value; break; // A
+        case 0: cpu->regs.bc.byte.hi = value; break;                    // B
+        case 1: cpu->regs.bc.byte.lo = value; break;                    // C
+        case 2: cpu->regs.de.byte.hi = value; break;                    // D
+        case 3: cpu->regs.de.byte.lo = value; break;                    // E
+        case 4: cpu->regs.hl.byte.hi = value; break;                    // H
+        case 5: cpu->regs.hl.byte.lo = value; break;                    // L
+        case 6: bus_write8(cpu->bus, cpu->regs.hl.pair, value); break;  // (HL)
+        case 7: cpu->regs.af.byte.hi = value; break;                    // A
         default: break;
     }
 }
