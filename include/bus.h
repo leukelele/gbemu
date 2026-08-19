@@ -13,8 +13,8 @@
  * This abstraction ensures that the CPU implementation remains independent
  * of the underlying memory layout and hardware mappings.
  */
-#ifndef MMU_H
-#define MMU_H
+#ifndef BUS_H
+#define BUS_H
 
 #include <stdint.h>
 

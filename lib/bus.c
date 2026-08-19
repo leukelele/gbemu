@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "mmu.h"
+#include "bus.h"
 
 uint8_t bus_read8(struct bus *bus, uint16_t addr) {
     if (addr <= 0x7FFF) return 0x00;        // cartridge ROM that is WIP

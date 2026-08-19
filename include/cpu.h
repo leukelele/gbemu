@@ -16,7 +16,7 @@
 
 #include <stdint.h>
 #include "register_file.h"
-#include "mmu.h"
+#include "bus.h"
 #include "instruction_set.h"
 
 /**

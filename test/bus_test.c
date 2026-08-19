@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "mmu.h"
+#include "bus.h"
 
 void test_vram_round_trip(void) {
     struct bus bus = {0};
