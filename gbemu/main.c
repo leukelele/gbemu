@@ -1,6 +1,9 @@
-#include <stdio.h>
+#include "cpu.h"
 
 int main(int argc, char **argv) {
-	printf("Hello world!\n");
-	return 0;
+    instruction_set_init();
+    struct bus bus = {0};
+    struct cpu cpu;
+    cpu_init(&cpu, &bus);
+    return 0;
 }

@@ -1,3 +1,26 @@
-#include <cpu.h>
+#include "cpu.h"
 
+void cpu_init(struct cpu *cpu, struct bus *bus) {
+    cpu->bus = bus;
+    reg_init(&cpu->regs);
+}
 
+uint8_t fetch(struct cpu *cpu) {
+    return bus_read8(cpu->bus, cpu->regs.pc++);
+}
+
+const struct instruction *decode(uint8_t opcode) {
+    return &get_instruction_table()[opcode];
+}
+
+uint8_t execute(struct cpu *cpu, const struct instruction *inst) {
+    if (!inst->execute) return 0x0;
+    bool branched = inst->execute(cpu);
+    return inst->mach_cycles + (branched ? inst->cond_cycles : 0);
+}
+
+uint8_t cpu_step(struct cpu *cpu) {
+    uint8_t opcode = fetch(cpu);
+    const struct instruction *inst = decode(opcode);
+    return execute(cpu, inst);
+}
