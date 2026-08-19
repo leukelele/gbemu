@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "register_file.h"
 
 void reg_init(struct reg_file *reg_file) {
@@ -10,10 +9,11 @@ void reg_init(struct reg_file *reg_file) {
     reg_file->sp      = 0xFFFE;
     reg_file->pc      = 0x0100;
 
+    //#include <stdio.h>
     // console logging
-    fprintf(stdout, "Initialized registers: ");
-    fprintf(stdout, "AF=0x%04X, BC=0x%04X, DE=0x%04X, HL=0x%04X, SP=0x%04X,",
-            reg_file->af.pair, reg_file->bc.pair, reg_file->de.pair,
-            reg_file->hl.pair, reg_file->sp);
-    fprintf(stdout, " PC=0x%04X\n", reg_file->pc);
+    //fprintf(stdout, "Initialized registers: ");
+    //fprintf(stdout, "AF=0x%04X, BC=0x%04X, DE=0x%04X, HL=0x%04X, SP=0x%04X,",
+    //        reg_file->af.pair, reg_file->bc.pair, reg_file->de.pair,
+    //        reg_file->hl.pair, reg_file->sp);
+    //fprintf(stdout, " PC=0x%04X\n", reg_file->pc);
 }
