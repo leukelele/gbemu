@@ -53,3 +53,16 @@ void reg8_set(struct cpu *cpu, uint8_t index, uint8_t value) {
         default: break;
     }
 }
+
+bool stack_pop16(struct cpu *cpu, uint8_t opcode){
+    cpu->regs.bc.byte.lo = bus_read8(cpu->bus, cpu->regs.sp++);
+    cpu->regs.bc.byte.hi = bus_read8(cpu->bus, cpu->regs.sp++);
+    return false;
+}
+
+bool stack_push16(struct cpu *cpu, uint8_t opcode) {
+    bus_write8(cpu->bus, --cpu->regs.sp, cpu->regs.bc.byte.hi);
+    bus_write8(cpu->bus, --cpu->regs.sp, cpu->regs.bc.byte.lo);
+    return false;
+}
+
