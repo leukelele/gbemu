@@ -54,6 +54,18 @@ void reg8_set(struct cpu *cpu, uint8_t index, uint8_t value) {
     }
 }
 
+uint16_t reg16_get(struct cpu *cpu, uint8_t index) {
+    return 0;
+}
+void reg16_set(struct cpu *cpu, uint8_t index, uint8_t value) {
+    switch(index){
+        case 0: cpu->regs.bc.pair = value; break;
+        case 1: cpu->regs.de.pair = value; break;
+        case 2: cpu->regs.hl.pair = value; break;
+        default: cpu->regs.af.pair = value & 0xFFF0; break; 
+    }
+}
+
 void stack_push16(struct cpu *cpu, uint16_t value) {
     bus_write8(cpu->bus, --cpu->regs.sp, (uint8_t)(value >> 8));
     bus_write8(cpu->bus, --cpu->regs.sp, (uint8_t)(value & 0xFF));
