@@ -3,6 +3,10 @@ This is mainly to keep track of why I made some of the most ludicrous
 decisions made while working on this project.
 ```
 
+## 260820
+**1613**. the visible CPU flags (in `include/flags.h`) and its get and set
+functions should be sufficient. I can't imagine having messed that up too much.
+
 ## 260819
 **1624**. This particular part is a headache for me. In `include/cpu.h`, I have
 declared `push` and `pop`; however, I wonder if I should just have push and
