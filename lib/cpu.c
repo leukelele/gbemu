@@ -63,7 +63,7 @@ uint16_t reg16_get(struct cpu *cpu, uint8_t index) {
     }
     return 0;
 }
-void reg16_set(struct cpu *cpu, uint8_t index, uint8_t value) {
+void reg16_set(struct cpu *cpu, uint8_t index, uint16_t value) {
     switch(index){
         case 0: cpu->regs.bc.pair = value; break;
         case 1: cpu->regs.de.pair = value; break;

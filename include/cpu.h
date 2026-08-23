@@ -85,7 +85,7 @@ uint8_t reg8_get(struct cpu *cpu, uint8_t index);
 void reg8_set(struct cpu *cpu, uint8_t index, uint8_t value);
 
 uint16_t reg16_get(struct cpu *cpu, uint8_t index);
-void reg16_set(struct cpu *cpu, uint8_t index, uint8_t value);
+void reg16_set(struct cpu *cpu, uint8_t index, uint16_t value);
 
 void stack_push16(struct cpu *cpu, uint16_t value);
 uint16_t stack_pop16(struct cpu *cpu);
