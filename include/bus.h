@@ -26,8 +26,7 @@ struct cartridge;
 
 /**
  * Each field maps to a fixed hardware address range as to mimic the memory map
- * found in the pandoc (though, I have also stored it in gbemu/docs/). There
- * are also special areas in memory such as: 
+ * found in the pandoc . There are also special areas in memory such as: 
  *  - echo RAM, which mirrors 0xC000-0xDDFF in working RAM, and 
  *  - 0xFEA0-0xFEFF, which is unusable RAM.
  */
