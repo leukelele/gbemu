@@ -98,13 +98,7 @@ static bool exec_ld_rr_nn(struct cpu *cpu, uint8_t opcode) {
     uint8_t lo = fetch(cpu);
     uint8_t hi = fetch(cpu);
     uint16_t nn = (uint16_t)((hi << 8) | lo);
-
-    switch ((opcode >> 4) & 0x3) {
-        case 0: cpu->regs.bc.pair = nn; break;
-        case 1: cpu->regs.de.pair = nn; break;
-        case 2: cpu->regs.hl.pair = nn; break;
-        case 3: cpu->regs.sp      = nn; break;
-    }
+    reg16_set(cpu, ((opcode >> 4) & 0x3), nn);
     return false;
 }
 
@@ -120,26 +114,12 @@ static bool exec_ldh(struct cpu *cpu, uint8_t opcode) {
 }
 
 static bool exec_push_rr(struct cpu *cpu, uint8_t opcode) {
-    uint16_t value;
-    switch ((opcode >> 4) & 0x3) {
-        case 0: value = cpu->regs.bc.pair; break;
-        case 1: value = cpu->regs.de.pair; break;
-        case 2: value = cpu->regs.hl.pair; break;
-        default: value = cpu->regs.af.pair; break;
-    }
-    stack_push16(cpu, value);
+    stack_push16(cpu, reg16_get(cpu, ((opcode >> 4) & 0x3)));
     return false;
 }
 
 static bool exec_pop_rr(struct cpu *cpu, uint8_t opcode) {
-    uint16_t value = stack_pop16(cpu);
-    switch ((opcode >> 4) & 0x3) {
-        case 0: cpu->regs.bc.pair = value; break;
-        case 1: cpu->regs.de.pair = value; break;
-        case 2: cpu->regs.hl.pair = value; break;
-        default: cpu->regs.af.pair = value & 0xFFF0; break; 
-                 // F's low nibble unwired
-    }
+    reg16_set(cpu, ((opcode >> 4) & 0x3), stack_pop16(cpu));
     return false;
 }
 
