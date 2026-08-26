@@ -272,8 +272,24 @@ static void instruction_ld(void) {
     }
 }   // instruction_ld
 
-
 static void instruction_alu(void) {
+    static const enum inst_fmt alu_formats[8] = {
+        ADD, ADC, SUB, SBC, AND, XOR, OR, CP
+    };
+
+    // ALU A,r block: 0x80-0xBF
+    for (uint16_t opcode = 0x80; opcode <= 0xBF; opcode++) {
+        uint8_t op     = (opcode >> 3) & 0x7;
+        uint8_t src    = opcode & 0x7;
+        uint8_t cycles = (src == 6) ? 2 : 1;
+        init_inst((uint8_t)opcode, alu_formats[op], cycles, 0, exec_alu_r);
+    }
+
+    // ALU A,n block: 0xC6, 0xCE, 0xD6, 0xDE, 0xE6, 0xEE, 0xF6, 0xFE
+    for (uint8_t op = 0; op < 8; op++) {
+        init_inst((uint8_t)(0xC6 | (op << 3)), alu_formats[op], 2, 0, 
+                exec_alu_n);
+    }
 }   // instruction_alu
 
 void instruction_set_init(void) {
